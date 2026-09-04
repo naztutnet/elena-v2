@@ -654,23 +654,41 @@ ul.addEventListener("change", () => {
     cap.textContent = c ? (b ? b.textContent + ' · ' + c.textContent.replace(b.textContent, '') : c.textContent).replace(/\s+/g,' ').trim() : '';
     cnt.textContent = `${i + 1} / ${links.length}`;
   };
-  const preload = () => [i + 1, i - 1].forEach(k => { const im = new Image(); im.src = links[(k + links.length) % links.length].getAttribute('href'); });
+  const preload = () => [i + 1, i - 1].forEach(k => { const a = links[(k + links.length) % links.length], im = new Image(); im.onload = () => loaded.add(a.getAttribute('href')); im.src = a.getAttribute('href'); });
+  // Сначала показываем миниатюру (она уже загружена), полный скан подменяет её, когда докачается.
+  const loaded = new Set();
+  const setSrc = a => {
+    const full = a.getAttribute('href'), thumb = a.querySelector('img')?.currentSrc || a.querySelector('img')?.src;
+    if (loaded.has(full) || !thumb) { img.src = full; return; }
+    img.src = thumb;
+    const pre = new Image();
+    pre.onload = () => { loaded.add(full); if (links[i] === a) img.src = full; };
+    pre.src = full;
+  };
   const show = (n, dir) => {
     i = (n + links.length) % links.length;
-    const a = links[i], src = a.getAttribute('href');
-    if (!dir) { img.src = src; setMeta(a); preload(); return; }
+    const a = links[i];
+    if (!dir) {
+      img.classList.add('in-left'); setSrc(a); setMeta(a);
+      requestAnimationFrame(() => requestAnimationFrame(() => img.classList.remove('in-left')));
+      preload(); return;
+    }
     // уводим текущий скан в сторону, новый заезжает с другой
     const out = dir > 0 ? 'out-left' : 'out-right', inn = dir > 0 ? 'in-left' : 'in-right';
     img.classList.add(out);
     setTimeout(() => {
-      const swap = () => {
-        img.classList.remove(out); img.classList.add(inn); setMeta(a);
-        requestAnimationFrame(() => requestAnimationFrame(() => img.classList.remove(inn)));
-        preload();
-      };
-      const pre = new Image(); pre.onload = pre.onerror = () => { img.src = src; swap(); }; pre.src = src;
+      img.classList.remove(out); img.classList.add(inn); setSrc(a); setMeta(a);
+      requestAnimationFrame(() => requestAnimationFrame(() => img.classList.remove(inn)));
+      preload();
     }, 200);
   };
+  // Полные сканы подгружаем заранее: когда блок с дипломами подъезжает к экрану
+  const warm = () => links.forEach((a, k) => setTimeout(() => { const im = new Image(); im.onload = () => loaded.add(a.getAttribute('href')); im.src = a.getAttribute('href'); }, k * 150));
+  const certsBlock = links[0].closest('.certs') || links[0].parentElement;
+  if ('IntersectionObserver' in window) {
+    const wio = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { warm(); wio.disconnect(); } }, {rootMargin: '800px 0px'});
+    wio.observe(certsBlock);
+  } else warm();
   const open = n => {
     lastFocus = document.activeElement; show(n); lb.hidden = false; document.body.style.overflow = 'hidden';
     requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('on')));
