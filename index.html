@@ -50,6 +50,7 @@
   .hero h1{font-size:clamp(34px,3.9vw,58px);max-width:15em;}
   .hero .lede{margin-top:26px;font-size:17px;max-width:32em;color:var(--soft);}
   .hero .sub{margin-top:18px;font-size:14px;color:var(--faint);max-width:32em;}
+  .hero .creds{margin-top:22px;font-size:12.5px;letter-spacing:.04em;color:var(--faint);max-width:32em;padding-top:18px;border-top:1px solid var(--line);}
   .hero .actions{margin-top:38px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;}
   .hero .actions .link{font-size:14px;}
 
@@ -95,6 +96,22 @@
   .problems .video em{position:absolute;left:14px;bottom:10px;font-style:normal;font-size:12px;color:var(--soft);}
   .problems .body .link{display:inline-block;margin-top:20px;font-size:14px;}
 
+  /* check */
+  .check .wrap{max-width:760px;}
+  .checklist{list-style:none;margin:40px 0 0;padding:0;border-top:1px solid var(--line);}
+  .checklist li{border-bottom:1px solid var(--line);}
+  .checklist label{display:flex;gap:16px;align-items:flex-start;padding:15px 0;cursor:pointer;font-size:16.5px;line-height:1.45;}
+  .checklist input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin-top:3px;border:1px solid var(--soft);background:var(--paper);cursor:pointer;position:relative;}
+  .checklist input:checked{background:var(--terra);border-color:var(--terra);}
+  .checklist input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
+  .checklist input:checked + span{color:var(--ink);}
+  .checklist span{color:var(--soft);}
+  .verdict{margin-top:28px;display:flex;justify-content:space-between;gap:24px;align-items:flex-start;flex-wrap:wrap;}
+  .verdict .say{font-family:var(--serif);font-size:19px;line-height:1.4;max-width:24em;}
+  .verdict .say b{font-weight:600;}
+  .verdict .count{flex:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding-top:8px;}
+  #verdict-btn{margin-top:28px;}
+
   /* honest */
   .honest .cols{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;}
   .honest h3{font-size:clamp(22px,2.2vw,30px);}
@@ -139,8 +156,9 @@
   .commit li b{color:var(--ink);font-weight:600;}
   .commit .after{margin-top:22px;font-size:14px;color:var(--faint);}
 
-  /* certs */
-  .certs .grid{margin-top:40px;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;}
+  /* certs (inside about) */
+  .about .certs{margin-top:64px;padding-top:32px;border-top:1px solid rgba(30,27,23,.18);display:block;}
+  .certs .grid{margin-top:22px;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;}
   .certs a{display:block;text-decoration:none;color:inherit;}
   .certs img{display:block;width:100%;aspect-ratio:1500/1090;object-fit:cover;filter:saturate(.85);border:1px solid var(--line);}
   .certs .cap{margin-top:8px;font-size:12px;color:var(--faint);line-height:1.4;}
@@ -170,6 +188,7 @@
     .prices .col{padding:0;border-left:0;border-top:1px solid var(--line);padding-top:28px;}
     .prices .col:first-child{border-top:0;padding-top:0;}
     .certs .grid{grid-template-columns:repeat(3,1fr);}
+    .about .certs{margin-top:44px;}
     section.s{padding:72px 0;}
     .statement{padding:72px 0;}
     .cta{padding:84px 0;}
@@ -182,7 +201,8 @@
     .hero .text{padding:40px 22px 48px;}
     .hero .actions{flex-direction:column;align-items:flex-start;gap:18px;}
     .facts div{grid-template-columns:1fr;gap:4px;}
-    .certs .grid{grid-template-columns:repeat(2,1fr);}
+    .certs .grid{grid-template-columns:repeat(3,1fr);gap:10px;}
+    .checklist label{font-size:15.5px;}
   }
 </style>
 </head>
@@ -192,10 +212,11 @@
   <div class="wrap">
     <a class="brand" href="#">Елена Пурышева<small>нейропсихолог · логопед</small></a>
     <ul>
-      <li><a href="#about">Обо мне</a></li>
       <li><a href="#problems">С чем приходят</a></li>
+      <li><a href="#check">Самопроверка</a></li>
       <li><a href="#how">Как работаю</a></li>
       <li><a href="#prices">Цены</a></li>
+      <li><a href="#about">Обо мне</a></li>
       <li><a href="#reviews">Отзывы</a></li>
     </ul>
     <a class="btn" data-form>Записаться</a>
@@ -209,40 +230,10 @@
     <h1 style="margin-top:22px">Готовлю детей к школе так, чтобы учиться было легче — и помогаю тем, кому уже трудно</h1>
     <p class="lede">Ниже — шесть ситуаций, с которыми ко мне приходят чаще всего. Найдите свою: внутри короткое объяснение, как это работает и к чему мы приходим.</p>
     <p class="sub">Дети от 5 до 14 лет. Сначала диагностика — потом программа под конкретного ребёнка.</p>
+    <p class="creds">Педагог-психолог · учитель-логопед · клинический психолог (нейропсихолог) · 20 лет практики</p>
     <div class="actions">
       <a class="btn" data-form>Записаться на диагностику</a>
       <a class="link" data-form="express">Бесплатная консультация · 20 мин →</a>
-    </div>
-  </div>
-</section>
-
-<section class="statement">
-  <div class="wrap">
-    <p>Ни одна из этих трудностей не уходит за неделю и не уходит за месяц. Любой, кто обещает быстро, либо не понимает, с чем имеет дело, либо вводит вас в заблуждение.</p>
-    <small>Важно</small>
-  </div>
-</section>
-
-<section class="s about" id="about">
-  <div class="wrap">
-    <div class="text">
-      <div class="eyebrow">Обо мне</div>
-      <h2>Коротко обо мне</h2>
-      <p style="margin-top:26px">Я детский нейропсихолог и логопед. Работаю с детьми от 5 до 14 лет, очно и онлайн.</p>
-      <p class="key">Успешность в школе напрямую зависит от того, насколько созрел мозг к первому классу.</p>
-      <p>Выявив зоны риска до школы, мы помогаем нервной системе дозреть и адаптироваться к нагрузкам, предотвращая будущие трудности с письмом, чтением и усидчивостью.</p>
-      <p>Если проблемы в школе уже начались — это не повод для паники, а сигнал к действию. Мозг ребёнка гибок и хорошо отзывается на правильные упражнения. Мы поможем укрепить его слабые стороны, устранить причину трудностей и вернуть уверенность в учёбе.</p>
-      <p class="key">Сначала диагностика, потом программа под конкретного ребёнка. Универсальных маршрутов не бывает.</p>
-    </div>
-    <div>
-      <dl class="facts">
-        <div><dt>Образование</dt><dd>МГСУ, педагог-психолог, 2001</dd></div>
-        <div><dt>Дополнительно</dt><dd>МСПИ, учитель-логопед · МИРО, клинический психолог, нейропсихолог</dd></div>
-        <div><dt>Опыт</dt><dd>20 лет практики</dd></div>
-        <div><dt>Формат</dt><dd>Очно в Москве и онлайн</dd></div>
-        <div><dt>Возраст</dt><dd>Дети от 5 до 14 лет</dd></div>
-        <p class="more"><a class="link" href="#certs">Дипломы и сертификаты →</a></p>
-      </dl>
     </div>
   </div>
 </section>
@@ -253,6 +244,27 @@
     <h2>С чем ко мне приходят</h2>
     <p class="intro">Откройте свой пункт. В каждом — короткое объяснение и видео на две минуты: как это работает, почему это работает и к чему приходим.</p>
     <div class="grid" id="list"></div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="wrap">
+    <p>Ни одна из этих трудностей не уходит за неделю и не уходит за месяц. Любой, кто обещает быстро, либо не понимает, с чем имеет дело, либо вводит вас в заблуждение.</p>
+    <small>Важно</small>
+  </div>
+</section>
+
+<section class="s check" id="check">
+  <div class="wrap">
+    <div class="eyebrow">Короткая самопроверка</div>
+    <h2>Отметьте, что узнаёте</h2>
+    <p class="intro">Это не диагностика и не диагноз — просто способ за минуту понять, есть ли смысл разговаривать.</p>
+    <ul class="checklist" id="checklist"></ul>
+    <div class="verdict">
+      <p class="say" id="verdict-say">Отметьте пункты, которые про вашего ребёнка.</p>
+      <span class="count" id="verdict-count">отмечено 0 из 10</span>
+    </div>
+    <a class="btn" id="verdict-btn" data-form href="#zapis" hidden>Записаться на диагностику</a>
   </div>
 </section>
 
@@ -315,6 +327,40 @@
   </div>
 </section>
 
+<section class="s about" id="about">
+  <div class="wrap">
+    <div class="text">
+      <div class="eyebrow">Обо мне</div>
+      <h2>Коротко обо мне</h2>
+      <p style="margin-top:26px">Я детский нейропсихолог и логопед. Работаю с детьми от 5 до 14 лет, очно и онлайн.</p>
+      <p class="key">Успешность в школе напрямую зависит от того, насколько созрел мозг к первому классу.</p>
+      <p>Выявив зоны риска до школы, мы помогаем нервной системе дозреть и адаптироваться к нагрузкам, предотвращая будущие трудности с письмом, чтением и усидчивостью.</p>
+      <p>Если проблемы в школе уже начались — это не повод для паники, а сигнал к действию. Мозг ребёнка гибок и хорошо отзывается на правильные упражнения. Мы поможем укрепить его слабые стороны, устранить причину трудностей и вернуть уверенность в учёбе.</p>
+      <p class="key">Сначала диагностика, потом программа под конкретного ребёнка. Универсальных маршрутов не бывает.</p>
+    </div>
+    <div>
+      <dl class="facts">
+        <div><dt>Образование</dt><dd>МГСУ, педагог-психолог, 2001</dd></div>
+        <div><dt>Дополнительно</dt><dd>МСПИ, учитель-логопед · МИРО, клинический психолог, нейропсихолог</dd></div>
+        <div><dt>Опыт</dt><dd>20 лет практики</dd></div>
+        <div><dt>Формат</dt><dd>Очно в Москве и онлайн</dd></div>
+        <div><dt>Возраст</dt><dd>Дети от 5 до 14 лет</dd></div>
+      </dl>
+    </div>
+  </div>
+  <div class="wrap certs" id="certs">
+    <div class="eyebrow">Дипломы и сертификаты</div>
+    <div class="grid">
+      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-5.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-5-thumb.jpg" alt=""><div class="cap">МГСУ · педагог-психолог · 2001</div></a>
+      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-4.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-4-thumb.jpg" alt=""><div class="cap">МСПИ · учитель-логопед · 2019</div></a>
+      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-6.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-6-thumb.jpg" alt=""><div class="cap">МИРО · клинический психолог, нейропсихолог · 2024</div></a>
+      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-2.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-2-thumb.jpg" alt=""><div class="cap">МИРО · логопедический массаж · 2023</div></a>
+      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-1.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-1-thumb.jpg" alt=""><div class="cap">Институт нейропсихологии · ранняя диагностика · 2024</div></a>
+      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-3.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-3-thumb.jpg" alt=""><div class="cap">МСПИ · подготовка к школе · 2019</div></a>
+    </div>
+  </div>
+</section>
+
 <section class="s reviews" id="reviews">
   <div class="wrap">
     <div class="head">
@@ -357,21 +403,6 @@
         </ul>
         <p class="after">Я никому не отказываю. Но работаю только в связке с родителем — постоянно в диалоге и с обратной связью после каждого занятия. По-другому не выходит.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="s certs" id="certs">
-  <div class="wrap">
-    <div class="eyebrow">Документы</div>
-    <h2>Дипломы и сертификаты</h2>
-    <div class="grid">
-      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-5.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-5-thumb.jpg" alt=""><div class="cap">МГСУ · педагог-психолог · 2001</div></a>
-      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-4.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-4-thumb.jpg" alt=""><div class="cap">МСПИ · учитель-логопед · 2019</div></a>
-      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-6.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-6-thumb.jpg" alt=""><div class="cap">МИРО · клинический психолог, нейропсихолог · 2024</div></a>
-      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-2.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-2-thumb.jpg" alt=""><div class="cap">МИРО · логопедический массаж · 2023</div></a>
-      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-1.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-1-thumb.jpg" alt=""><div class="cap">Институт нейропсихологии · ранняя диагностика · 2024</div></a>
-      <a href="https://naztutnet.github.io/elena-purysheva/img/certs/cert-3.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://naztutnet.github.io/elena-purysheva/img/certs/cert-3-thumb.jpg" alt=""><div class="cap">МСПИ · подготовка к школе · 2019</div></a>
     </div>
   </div>
 </section>
@@ -478,6 +509,34 @@ document.getElementById("list").innerHTML = items.map((it, i) => `
       <a class="link" data-form href="#zapis">${esc(it.cta)} →</a>
     </div>
   </details>`).join("");
+
+const checks = [
+  "Читает по слогам, хотя уже не первый класс",
+  "Пишет «как курица лапой», строчка уезжает вверх",
+  "Путает или зеркалит буквы, пропускает их даже при списывании",
+  "Не может усидеть за столом дольше десяти минут",
+  "Учили вечером — утром не помнит ничего",
+  "Уроки занимают больше двух часов",
+  "К третьему уроку «выключается», из школы приходит без сил",
+  "Говорит невнятно, путает звуки",
+  "Учитель говорит: «может, если захочет»",
+  "Скоро в школу, и вы не уверены, что он готов"
+];
+const ul = document.getElementById("checklist");
+ul.innerHTML = checks.map(t => `<li><label><input type="checkbox" data-check><span>${esc(t)}</span></label></li>`).join("");
+const say = document.getElementById("verdict-say"), cnt = document.getElementById("verdict-count"), vbtn = document.getElementById("verdict-btn");
+function verdict(n){
+  if (n === 0) return "Отметьте пункты, которые про вашего ребёнка.";
+  if (n < 3)   return "<b>Один-два пункта — ещё не повод для тревоги.</b> Понаблюдайте: если что-то из этого повторяется изо дня в день, приходите.";
+  if (n < 6)   return "<b>Три и больше — есть смысл прийти на диагностику.</b> Это не значит, что с ребёнком что-то не так. Это значит, что стоит понять причину, пока она не закрепилась.";
+  return "<b>Так живёт вся семья, и это лечится.</b> Чем раньше станет понятна причина, тем меньше придётся навёрстывать. Начните с диагностики.";
+}
+ul.addEventListener("change", () => {
+  const n = ul.querySelectorAll("[data-check]:checked").length;
+  say.innerHTML = verdict(n);
+  cnt.textContent = `отмечено ${n} из ${checks.length}`;
+  vbtn.hidden = n < 3;
+});
 
 const DIAG_FORM_URL = "https://forms.yandex.ru/u/67ab9761068ff0ee37fe8f41/";
 const EXPRESS_FORM_URL = "https://forms.yandex.ru/u/66cd801702848f0380e8dcbe/";
