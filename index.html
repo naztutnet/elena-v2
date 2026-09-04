@@ -702,9 +702,33 @@ ul.addEventListener("change", () => {
 
 const DIAG_FORM_URL = "https://forms.yandex.ru/u/67ab9761068ff0ee37fe8f41/";
 const EXPRESS_FORM_URL = "https://forms.yandex.ru/u/66cd801702848f0380e8dcbe/";
+// Идентификаторы поля «Что вас беспокоит» / «О чём хотите спросить» в Яндекс Формах — для предзаполнения.
+const FORM_FIELD = { diag: "answer_long_text_70610273", express: "answer_long_text_55011361" };
+
+// Собираем текст для предзаполнения: отмеченные пункты самопроверки + ситуация, из которой нажали кнопку.
+function prefillText(link){
+  const parts = [];
+  const det = link.closest('details');
+  const title = det && (det.querySelector('.qtitle') || det.querySelector('summary h3'));
+  if (title) parts.push('Ситуация с сайта: ' + title.textContent.trim());
+  const ticked = [...document.querySelectorAll('[data-check]:checked')].map(c => { const t = c.closest('label').textContent.trim(); return t[0].toLowerCase() + t.slice(1); });
+  if (ticked.length) parts.push(`Отмечено в самопроверке на сайте (${ticked.length} из ${checks.length}): ` + ticked.join('; ') + '.');
+  return parts.length ? parts.join('\n') + '\n\n' : '';
+}
+function formUrl(kind, link){
+  const base = kind === 'express' ? EXPRESS_FORM_URL : DIAG_FORM_URL;
+  const text = link ? prefillText(link) : '';
+  return text ? base + '?' + FORM_FIELD[kind] + '=' + encodeURIComponent(text) : base;
+}
 document.querySelectorAll('[data-form]').forEach(a => {
-  a.setAttribute('href', a.getAttribute('data-form') === 'express' ? EXPRESS_FORM_URL : DIAG_FORM_URL);
+  const kind = a.getAttribute('data-form') === 'express' ? 'express' : 'diag';
+  a.setAttribute('href', formUrl(kind));
   a.target = '_blank'; a.rel = 'noopener';
+  // адрес пересобираем в момент клика — галочки могли поменяться
+  const refresh = () => a.setAttribute('href', formUrl(kind, a));
+  a.addEventListener('pointerdown', refresh);
+  a.addEventListener('focus', refresh);
+  a.addEventListener('click', refresh);
 });
 </script>
 </body>
